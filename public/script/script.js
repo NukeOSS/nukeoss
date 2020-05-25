@@ -243,9 +243,6 @@ function monitorChanges(participantName)
             $("#scrumBoardParticipant").fadeIn(100);
             $("#joinedSessionId").html(sessionId);
 
-            $("#currentTopic").html(doc.data().Topic);
-            $("#currentTopicDiv").removeClass('alert-danger').addClass('alert-success');
-
             $("#scrumSequence").fadeIn(100);
         }
 
@@ -254,6 +251,8 @@ function monitorChanges(participantName)
             if (master) {
                 loadParticipants();
             } else {
+                $("#currentTopic").html(doc.data().Topic);
+                $("#currentTopicDiv").removeClass('alert-danger').addClass('alert-success');
                 resetScrumSequence();
             }
         }
