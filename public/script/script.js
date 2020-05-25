@@ -229,26 +229,32 @@ function monitorChanges(participantName)
 
         console.log(master);
 
+        if (master) {
+            $("#scrumBoardMaster").fadeIn(0);
+            $("#topic").val(topic);
+            $("#sessionId").html(sessionId);
+
+            $("#scrumResponse").fadeIn(100);
+            loadParticipants();
+        } else {
+
+            resetScrumSequence();
+
+            $("#scrumBoardParticipant").fadeIn(100);
+            $("#joinedSessionId").html(sessionId);
+
+            $("#currentTopic").html(doc.data().Topic);
+            $("#currentTopicDiv").removeClass('alert-danger').addClass('alert-success');
+
+            $("#scrumSequence").fadeIn(100);
+        }
+
         if (topic != "" && topic != null)
         {
             if (master) {
-                $("#scrumBoardMaster").fadeIn(0);
-                $("#topic").val(topic);
-                $("#sessionId").html(sessionId);
-
-                $("#scrumResponse").fadeIn(100);
                 loadParticipants();
             } else {
-
                 resetScrumSequence();
-
-                $("#scrumBoardParticipant").fadeIn(100);
-                $("#joinedSessionId").html(sessionId);
-
-                $("#currentTopic").html(doc.data().Topic);
-                $("#currentTopicDiv").removeClass('alert-danger').addClass('alert-success');
-
-                $("#scrumSequence").fadeIn(100);
             }
         }
 
