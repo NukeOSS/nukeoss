@@ -1,37 +1,26 @@
-## Welcome to GitHub Pages
+## Welcome Scrum Poker OSS
 
-You can use the [editor on GitHub](https://github.com/viv9k/ScrumPokerOSS/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+This tool is designed to manage your scrum poker activity's.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### How to get started
 
-### Markdown
+1. You can directly use the hosted project @ https://scrumpoker-3a0ac.web.app/
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+2. Please Make a clone and Update the Firebase configurations as Needed.
+
+### Steps to start contributing
 
 ```markdown
-Syntax highlighted code block
+- Make a fork
+- Check for issues label in the project
+- Create a branch related to the issue/feature
+- Make Changes
+- Commit the changes
+- Add remote upstream
+- Push your changes to upstream master
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+**Please Follow the development guidelines wiki**
 ```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/viv9k/ScrumPokerOSS/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
 ### Support or Contact
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Please Connect with our contributors for any help.
