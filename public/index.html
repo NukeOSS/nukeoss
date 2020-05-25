@@ -1,0 +1,315 @@
+<!-- 
+Copyright (C) 2020
+Author: Vivek Kumar<vvksindia@gmail.com>
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+version 2 as published by the Free Software Foundation.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. 
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SCRUM POKER OSS</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use 
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-firestore.js"></script>
+
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
+    <script src="script/firebaseScript.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    
+    <!-- navbar -->
+
+    <div class="container-fluid bg-primary">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+          <a class="navbar-brand" href="#">Scrum Poker OSS</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active" id="joinSessionBtn">
+                      <a class="nav-link" href="#">Join Session</a>
+                  </li>
+                  <li class="nav-item" id="createNewSessionBtn">
+                      <a class="nav-link" href="#">Create New Session</a>
+                  </li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                  <li class="nav-item active">
+                      <a class="nav-link" id="userName">Guest</a>
+                  </li>
+                  <li class="nav-item">
+                      <button class="btn btn-outline-light" id="loginBtn">Login</button>
+                      <button class="btn btn-outline-light" id="signoutBtn">SignOut</button>
+                  </li>
+              </ul>
+          </div>
+      </nav>
+  </div>
+
+  
+  <!-- Loading -->
+
+  <div class="container-fluid" id="loadingPage">
+    <div class="row pt-5">
+        <div class="col"></div>
+        <div class="col d-flex justify-content-center">
+            <div class="spinner-border text-success" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+  </div>
+
+  <!-- Login -->
+
+  <div class="container-fluid" id="loginBody">
+      <div class="row pt-5">
+          <div class="col">
+          </div>
+          <div class="col bg-primary p-5 text-light rounded">
+              <div id="firebaseui-auth-container"></div>
+              <div id="loader">Loading...</div>
+          </div>
+          <div class="col"></div>
+      </div>
+  </div>
+
+  <!-- Join Session -->
+
+  <div class="container-fluid" id="joinSession">
+      <div class="row pt-5">
+          <div class="col"></div>
+          <div class="col bg-primary p-5 text-light rounded">
+            <div class="alert alert-danger" role="alert" id="sessionNotFoundError">
+                No Session Found!
+              </div>
+              <div class="input-group mb-3">
+                  <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Enter Session ID" id="joinSessionId">
+              </div>
+              <div class="input-group mb-3">
+                  <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Enter Your Name" id="participantName">
+              </div>
+              <div class="float-right">
+                  <button class="btn btn-outline-light" id="joinSession">Join the Session</button>
+              </div>
+          </div>
+          <div class="col"></div>
+      </div>
+  </div>
+
+  <!-- Create New Session -->
+
+  <div class="container-fluid" id="createNewSession">
+      <div class="row pt-5">
+          <div class="col"></div>
+          <div class="col bg-primary p-5 text-light rounded">
+              <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                      <label class="input-group-text" for="inputGroupSelect01">Please Select sequence</label>
+                  </div>
+                  <select class="custom-select" id="sequenceType">
+                      <option selected>Choose...</option>
+                      <option value="1">Fibonacci Number</option>
+                      <option value="2">Prime Number</option>
+                      <option value="3">Number</option>
+                  </select>
+              </div>
+              <div class="input-group mb-3">
+                  <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Enter Your Name" id="masterName">
+              </div>
+              <div class="float-right">
+                  <button class="btn btn-outline-light" id="createSession">Create Session</button>
+              </div>
+          </div>
+          <div class="col"></div>
+      </div>
+  </div>
+
+  <!-- ScrumBoardMaster -->
+
+  <div class="container-fluid" id="scrumBoardMaster">
+    <div class="row pt-5">
+        <div class="col">
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">
+                    Session ID: <a id="sessionId"></a>
+                </h4>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-2">
+        <div class="col"></div>
+        <div class="col bg-primary p-5 text-light rounded">
+            <div class="input-group mb-3">
+                <div class="input-group input-group-lg">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-lg">Topic : </span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" id="topic">
+                </div>
+            </div>
+            <div class="float-right">
+                <button class="btn btn-outline-light" id="showScrum">Show</button>
+                <button class="btn btn-outline-light" id="startScrum">Start</button>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+
+<!-- scrum response -->
+
+<div class="container-fluid" id="scrumResponse">
+    <div class="row pt-5" id="participantCard">
+        
+    </div>
+</div>
+
+<!-- scrum board participant -->
+
+<div class="container-fluid" id="scrumBoardParticipant">
+    <div class="row pt-5">
+        <div class="col">
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">
+                    Session ID: <a id="joinedSessionId"></a>
+                </h4>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-2">
+        <div class="col">
+        </div>
+        <div class="col ">
+            <div class="alert alert-danger" role="alert" id="currentTopicDiv">
+                <h4 class="alert-heading" id="currentTopic">No Topic Found!</h4>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+
+<!-- scrum sequence -->
+
+<div class="container-fluid" id="scrumSequence">
+    <div class="row pt-2" >
+        <div class="col">
+            <div class="card text-white bg-warning mb-3 text-center" style="max-width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">1</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-warning mb-3 text-center" style="max-width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">2</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-warning mb-3 text-center" style="max-width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">3</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-warning mb-3 text-center" style="max-width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">5</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-warning mb-3 text-center" style="max-width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">8</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-2" >
+        <div class="col">
+            <div class="card text-white bg-warning mb-3 text-center" style="max-width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">1</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-warning mb-3 text-center" style="max-width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">2</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-warning mb-3 text-center" style="max-width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">3</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-warning mb-3 text-center" style="max-width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">5</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-warning mb-3 text-center" style="max-width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">8</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+  <script src="script/firebaseLogin.js"></script>
+  <script src="script/script.js"></script>
+  </body>
+</html>
