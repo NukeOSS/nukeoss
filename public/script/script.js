@@ -80,6 +80,24 @@ $("#createSession").click(function() {
     createSession(selectedSequence, masterName);
 });
 
+$("#testFunction").click(function() {
+    var createSession = functions.httpsCallable('createSession');
+
+    createSession({text: "Hello"}).then(function(result) {
+        // Read result of the Cloud Function.
+        console.log(result);
+        // ...
+      }).catch(function(error) {
+        // Getting the Error details.
+        var code = error.code;
+        var message = error.message;
+        var details = error.details;
+        // ...
+
+        console.log(code + message + details);
+      });
+});
+
 function createSession(selectedSequence, masterName)
 {
     createSessionId();
