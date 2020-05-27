@@ -85,7 +85,7 @@ $("#testFunction").click(function() {
 
     createSession().then(function(result) {
         // Read result of the Cloud Function.
-        console.log(result.data.text);
+        console.log(result.data[0].text);
         // ...
       }).catch(function(error) {
         // Getting the Error details.
