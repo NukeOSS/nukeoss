@@ -83,9 +83,9 @@ $("#createSession").click(function() {
 $("#testFunction").click(function() {
     var createSession = functions.httpsCallable('createSession');
 
-    createSession({text: "Hello"}).then(function(result) {
+    createSession().then(function(result) {
         // Read result of the Cloud Function.
-        console.log(result);
+        console.log(result.data.text);
         // ...
       }).catch(function(error) {
         // Getting the Error details.

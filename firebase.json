@@ -13,10 +13,12 @@
       "**/.*",
       "**/node_modules/**"
     ],
-    "rewrites": [{
-      "source": "/createSession",
-      "function": "createSession"
-    }]
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
   },
   "emulators": {
     "firestore": {
@@ -31,6 +33,9 @@
     "ui": {
       "enabled": true,
       "port": "9003"
+    },
+    "functions": {
+      "port": 5001
     }
   },
   "functions": {
