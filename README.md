@@ -20,6 +20,8 @@ This tool is designed to manage your scrum poker activity's.
 - Push your changes to upstream master
 
 **Please Follow the development guidelines wiki**
+
+[How to get started](https://github.com/ScrumPokerOSS/ScrumPokerOSS/wiki/How-to-get-started)
 ```
 ### Support or Contact
 
