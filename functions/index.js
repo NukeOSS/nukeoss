@@ -1,4 +1,10 @@
 const functions = require('firebase-functions');
+const cors = require('cors')({ origin: true });
+
+const admin = require('firebase-admin');
+admin.initializeApp();
+
+const db = admin.firestore();
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
@@ -7,42 +13,57 @@ const functions = require('firebase-functions');
 //  response.send("Hello from Firebase!");
 // });
 
-"use strict";
+exports.createsession = functions.https.onRequest((request, response) => {
+    cors(request, response, () => {
 
-//import * as admin from 'firebase-admin';
-const express = require("express");
-var cors = require('cors')
-const bodyParser = require("body-parser");
-const sessid = require(".//utils");
+        let sessionId = createSessionID();
 
-var admin = require("firebase-admin");
+        let name = request.body.data.name;
+        let selectedSequence = request.body.data.selectedSequence;
 
+        let result = db.collection(sessionId).doc("Main").set({
+            Sequence: selectedSequence,
+            MasterName: name,
+            Topic: "",
+            Participants: []
+        });
 
-admin.initializeApp({
-  credential: admin.credential.applicationDefault(),
- databaseURL: "http://localhost:5001"
+        result = {
+            data: [{
+                name: name,
+                sessionId: sessionId
+            }]
+        };
+
+        response.status(200).send(result);
+    });
 });
 
-const db = admin.firestore();
-const app = express();
-exports.app = app;
-const main = express();
-main.use(bodyParser.json());
-main.use(bodyParser.urlencoded({ extended: true }));
-main.use('/api/v1', app);
-exports.webApi = functions.https.onRequest(main);
-app.use(cors())
+/* Generate the base-62 key*/
+const base62 = {
+    charset: '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        .split(''),
+    encode: integer => {
+        if (integer === 0) {
+            return 0;
+        }
+        let s = [];
+        while (integer > 0) {
+            s = [base62.charset[integer % 62], ...s];
+            integer = Math.floor(integer / 62);
+        }
+        return s.join('');
+    },
+    decode: chars => chars.split('').reverse().reduce((prev, curr, i) =>
+        prev + (base62.charset.indexOf(curr) * (62 ** i)), 0)
+};
 
-// Add new prospect  
-app.post('/createsession', async (req, res) => {
-    const sessionId = sessid.createSessionID();
+/*Create base-62 based ID with mili second based time*/
+function createSessionID() {
 
-    const sessionReturn={
-        session:sessionId
-    };
-    res.status(200).send(sessionReturn); 
-});
+    var dateLocal = new Date();
+    var miliSec = dateLocal.getTime();
+    returnSession = base62.encode(miliSec);
+    return returnSession;
 
-app.get('/createsession', async (req, res) => {
-   res.status(400).send('Not Supported'); 
-});
+}
