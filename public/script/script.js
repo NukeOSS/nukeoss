@@ -75,15 +75,18 @@ $("#createSession").click(function() {
     $("#createNewSession").fadeOut(0);
     $("#loadingPage").fadeIn(0);
 
-    createSession(selectedSequence, masterName);
-});
-
-$("#testFunction").click(function() {
     var createSession = functions.httpsCallable('createsession');
 
-    createSession().then(function(result) {
+    createSession({ name: masterName, selectedSequence: selectedSequence }).then(function(result) {
         // Read result of the Cloud Function.
-        console.log(result.data[0].text);
+        sessionId = result.data[0].sessionId;
+
+        console.log("Session ID: " + result.data[0].sessionId);
+
+        console.log("Session successfully created!");
+        loadScrumBoard(sessionId);
+
+        master = true;
         // ...
     }).catch(function(error) {
         // Getting the Error details.
@@ -95,33 +98,6 @@ $("#testFunction").click(function() {
         console.log(code + message + details);
     });
 });
-
-function createSession(selectedSequence, masterName) {
-    createSessionId();
-    console.log("New Session Id: " + sessionId);
-
-    // Add a new document in collection "sessionId"
-    db.collection(sessionId).doc("Main").set({
-            Sequence: selectedSequence,
-            MasterName: masterName,
-            Topic: "",
-            Participants: []
-        })
-        .then(function() {
-            console.log("Document successfully written!");
-            loadScrumBoard(sessionId);
-        })
-        .catch(function(error) {
-            console.error("Error writing document: ", error);
-        });
-
-    master = true;
-}
-
-function createSessionId() {
-    var today = new Date();
-    sessionId = today.getHours() + "" + today.getMinutes() + "" + today.getSeconds();
-}
 
 $("#scrumBoardMaster").ready(function() {
     $("#scrumBoardMaster").hide(0);
