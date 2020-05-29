@@ -78,25 +78,23 @@ $("#createSession").click(function() {
     var createSession = functions.httpsCallable('createsession');
 
     createSession({ name: masterName, selectedSequence: selectedSequence }).then(function(result) {
-        // Read result of the Cloud Function.
-        sessionId = result.data.sessionId;
+            // Read result of the Cloud Function.
+            sessionId = result.data.sessionId;
+            console.log("Session ID: " + result.data.sessionId);
+            console.log("Session successfully created!");
+            loadScrumBoard(sessionId);
 
-        console.log("Session ID: " + result.data.sessionId);
+            master = true;
+        })
+        .catch(function(error) {
+            // Getting the Error details.
+            var code = error.code;
+            var message = error.message;
+            var details = error.details;
+            // ...
 
-        console.log("Session successfully created!");
-        loadScrumBoard(sessionId);
-
-        master = true;
-        // ...
-    }).catch(function(error) {
-        // Getting the Error details.
-        var code = error.code;
-        var message = error.message;
-        var details = error.details;
-        // ...
-
-        console.log("Error Code: " + code + "\n Error Message: " + message + "\n Error details: " + details);
-    });
+            console.log("Error Code: " + code + "\n Error Message: " + message + "\n Error details: " + details);
+        });
 });
 
 $("#scrumBoardMaster").ready(function() {
@@ -141,7 +139,7 @@ $("#joinSession").click(function() {
     participantName = $("#participantName").val();
 
     if (participantName != "" && participantName != null) {
-        joinSession(participantName);
+        joinSession();
     }
 });
 
@@ -149,7 +147,7 @@ $("#sessionNotFoundError").ready(function() {
     $("#sessionNotFoundError").hide(0);
 })
 
-function joinSession(participantName) {
+function joinSession() {
     // Adding in the list of participants
 
     var joinsession = functions.httpsCallable('joinsession');
@@ -158,7 +156,7 @@ function joinSession(participantName) {
 
         $("#joinSession").fadeOut(0);
         console.log("Session joined Successfuly!");
-        monitorChanges(participantName);
+        monitorChanges();
 
         // master = true;
         // ...
@@ -188,7 +186,7 @@ $("#scrumResponse").ready(function() {
     $("#scrumResponse").hide(0);
 });
 
-function monitorChanges(participantName) {
+function monitorChanges() {
     var sequenceType;
     var topic;
 
