@@ -79,9 +79,9 @@ $("#createSession").click(function() {
 
     createSession({ name: masterName, selectedSequence: selectedSequence }).then(function(result) {
         // Read result of the Cloud Function.
-        sessionId = result.data[0].sessionId;
+        sessionId = result.data.sessionId;
 
-        console.log("Session ID: " + result.data[0].sessionId);
+        console.log("Session ID: " + result.data.sessionId);
 
         console.log("Session successfully created!");
         loadScrumBoard(sessionId);
@@ -95,7 +95,7 @@ $("#createSession").click(function() {
         var details = error.details;
         // ...
 
-        console.log(code + message + details);
+        console.log("Error Code: " + code + "\n Error Message: " + message + "\n Error details: " + details);
     });
 });
 
@@ -152,18 +152,28 @@ $("#sessionNotFoundError").ready(function() {
 function joinSession(participantName) {
     // Adding in the list of participants
 
-    db.collection(sessionId).doc("Main").update({
-            Participants: firebase.firestore.FieldValue.arrayUnion(participantName)
-        })
-        .then(function() {
-            console.log("Document successfully written!");
-            createParticipant(participantName);
-        })
-        .catch(function(error) {
-            $("#joinSessionId").addClass('text-danger');
-            $("#sessionNotFoundError").fadeIn(100);
-            console.error("Error writing document: ", error);
-        });
+    var joinsession = functions.httpsCallable('joinsession');
+
+    joinsession({ sessionId: sessionId, participantName: participantName }).then(function(result) {
+
+        $("#joinSession").fadeOut(0);
+        console.log("Session joined Successfuly!");
+        monitorChanges(participantName);
+
+        // master = true;
+        // ...
+    }).catch(function(error) {
+        // Getting the Error details.
+        $("#joinSessionId").addClass('text-danger');
+        $("#sessionNotFoundError").fadeIn(100);
+
+        var code = error.code;
+        var message = error.message;
+        var details = error.details;
+        // ...
+
+        console.log("Error Code: " + code + "\n Error Message: " + message + "\n Error details: " + details);
+    });
 }
 
 $("#scrumBoardParticipant").ready(function() {
@@ -173,22 +183,6 @@ $("#scrumBoardParticipant").ready(function() {
 $("#scrumSequence").ready(function() {
     $("#scrumSequence").hide(0);
 });
-
-function createParticipant(participantName) {
-    $("#joinSession").fadeOut(0);
-
-    db.collection(sessionId).doc(participantName).set({
-            value: 0
-        })
-        .then(function() {
-            console.log("Document successfully written!");
-        })
-        .catch(function(error) {
-            console.error("Error writing document: ", error);
-        });
-
-    monitorChanges(participantName);
-}
 
 $("#scrumResponse").ready(function() {
     $("#scrumResponse").hide(0);
@@ -357,17 +351,19 @@ $(".card").click(function() {
 
     var cardSelected = $(this).html();
 
+    console.log(cardSelected);
+
     $(this).removeClass('bg-warning');
     $(this).addClass('bg-success');
 
     var selectedSequenceNumber;
 
-    if (cardSelected[82] != "<" && cardSelected[82] != ">") {
-        selectedSequenceNumber = cardSelected[82];
+    if (cardSelected[92] != "<" && cardSelected[92] != ">") {
+        selectedSequenceNumber = cardSelected[92];
     }
 
-    if (cardSelected[83] != "<" && cardSelected[83] != ">") {
-        selectedSequenceNumber = selectedSequenceNumber + "" + cardSelected[83];
+    if (cardSelected[93] != "<" && cardSelected[93] != ">") {
+        selectedSequenceNumber = selectedSequenceNumber + "" + cardSelected[93];
     }
 
     sendSelectedValue(selectedSequenceNumber);

@@ -18,7 +18,14 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 // Your web app's Firebase configuration
 var firebaseConfig = {
     // Please Enter Your Firebase Configuration Here.
-
+    apiKey: "AIzaSyCilDU92wZHSgov84nCsjHvHkBaTUEi1q8",
+    authDomain: "scrumpoker-3a0ac.firebaseapp.com",
+    databaseURL: "https://scrumpoker-3a0ac.firebaseio.com",
+    projectId: "scrumpoker-3a0ac",
+    storageBucket: "scrumpoker-3a0ac.appspot.com",
+    messagingSenderId: "254261994841",
+    appId: "1:254261994841:web:a78081d97e0d5550465848",
+    measurementId: "G-XK3Y52BFJ0"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);

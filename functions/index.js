@@ -13,6 +13,8 @@ const db = admin.firestore();
 //  response.send("Hello from Firebase!");
 // });
 
+// Create New Session in database
+
 exports.createsession = functions.https.onRequest((request, response) => {
     cors(request, response, () => {
 
@@ -21,21 +23,77 @@ exports.createsession = functions.https.onRequest((request, response) => {
         let name = request.body.data.name;
         let selectedSequence = request.body.data.selectedSequence;
 
-        let result = db.collection(sessionId).doc("Main").set({
-            Sequence: selectedSequence,
-            MasterName: name,
-            Topic: "",
-            Participants: []
-        });
+        let result;
 
-        result = {
-            data: [{
-                name: name,
-                sessionId: sessionId
-            }]
-        };
+        db.collection(sessionId).doc("Main").set({
+                Sequence: selectedSequence,
+                MasterName: name,
+                Topic: "",
+                Participants: []
+            })
+            .then(() => {
+                result = {
+                    data: {
+                        name: name,
+                        sessionId: sessionId
+                    }
+                };
+                console.log(result);
 
-        response.status(200).send(result);
+                return response.status(200).send(result);
+            })
+            .catch(() => {
+                console.log(error);
+                result = {
+                    data: {
+                        status: error,
+                    }
+                };
+                return response.status(500).send(result);
+            });
+    });
+});
+
+
+// Join the session
+
+exports.joinsession = functions.https.onRequest((request, response) => {
+    cors(request, response, () => {
+
+        let sessionId = request.body.data.sessionId;
+        let participantName = request.body.data.participantName;
+
+        let result;
+
+        db.collection(sessionId).doc("Main").update({
+                Participants: admin.firestore.FieldValue.arrayUnion(participantName)
+            })
+            .then(() => {
+                return db.collection(sessionId).doc(participantName).set({
+                    value: 0
+                });
+            })
+            .then(() => {
+                console.log("Participant created successfully");
+                result = {
+                    data: {
+                        name: participantName,
+                        sessionId: sessionId
+                    }
+                };
+                console.log(result);
+
+                return response.status(200).send(result);
+            })
+            .catch((error) => {
+                console.log(error);
+                result = {
+                    data: {
+                        status: result,
+                    }
+                };
+                return response.status(500).send(result);
+            });
     });
 });
 
