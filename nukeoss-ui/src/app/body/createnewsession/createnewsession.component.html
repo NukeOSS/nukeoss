@@ -1,0 +1,25 @@
+<div class="container-fluid" id="createNewSession">
+    <div class="row pt-5">
+        <div class="col"></div>
+        <div class="col bg-primary p-5 text-light rounded">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Please Select sequence</label>
+                </div>
+                <select class="custom-select" id="sequenceType" (change)="onSequenceChange($event)">
+                <option selected>Choose...</option>
+                <option value="1">Fibonacci Number</option>
+                <option value="2">Prime Number</option>
+                <option value="3">Number</option>
+            </select>
+            </div>
+            <div class="input-group mb-3">
+                <input type="text" (change)="getMasterName($event)" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Enter Your Name" id="masterName">
+            </div>
+            <div class="float-right">
+                <button class="btn btn-outline-light" id="createSession" (click)="onCreateSession()">Create Session</button>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
