@@ -6,13 +6,13 @@
                 No Session Found!
             </div>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Enter Session ID" id="joinSessionId">
+                <input type="text" class="form-control" [(ngModel)]="sessionId" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Enter Session ID" id="joinSessionId">
             </div>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Enter Your Name" id="participantName">
+                <input type="text" class="form-control" [(ngModel)]="participantName" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Enter Your Name" id="participantName">
             </div>
             <div class="float-right">
-                <button class="btn btn-outline-light" id="joinSession">Join the Session</button>
+                <button class="btn btn-outline-light" id="joinSession" (click)="onJoinSession()">Join the Session</button>
             </div>
         </div>
         <div class="col"></div>

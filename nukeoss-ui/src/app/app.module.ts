@@ -11,11 +11,12 @@ import { AngularFireFunctionsModule } from '@angular/fire/functions';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './body/header/header.component';
+import { HeaderComponent } from './header/header.component';
 import { BodyComponent } from './body/body.component';
 import { JoinsessionComponent } from './body/joinsession/joinsession.component';
 import { CreatenewsessionComponent } from './body/createnewsession/createnewsession.component';
 import { LoginComponent } from './body/login/login.component';
+import { ScrumboardparticipantComponent } from './body/scrumboardparticipant/scrumboardparticipant.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { LoginComponent } from './body/login/login.component';
     BodyComponent,
     JoinsessionComponent,
     CreatenewsessionComponent,
-    LoginComponent
+    LoginComponent,
+    ScrumboardparticipantComponent
   ],
   imports: [
     BrowserModule,

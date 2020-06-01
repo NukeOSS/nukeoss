@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/functions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-createnewsession',
@@ -14,7 +15,7 @@ export class CreatenewsessionComponent implements OnInit {
 
   public createSession: any;
 
-  constructor(public functions:AngularFireFunctions) {
+  constructor(public functions:AngularFireFunctions, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -41,13 +42,17 @@ export class CreatenewsessionComponent implements OnInit {
       const result =  await callable({ name: this.masterName, selectedSequence: this.selectedSequence }).toPromise();
 
       // Read result of the Cloud Function.
-      //const sessionId = result.data.sessionId;
+      const sessionId = result.sessionId;
+
       console.log(result);
       console.log("Session ID: " + result.sessionId);
+
       console.log("Session successfully created!");
       // loadScrumBoard(sessionId);
 
       const master = true;
+
+      this.router.navigate(['/ScrumBoardMaster', sessionId]);
 
     } catch (error) {
       // Getting the Error details.
@@ -58,18 +63,5 @@ export class CreatenewsessionComponent implements OnInit {
 
       console.log("Error Code: " + code + "\n Error Message: " + message + "\n Error details: " + details);
     }
-    // (function(result) {
-    //         // Read result of the Cloud Function.
-    //         const sessionId = result.data.sessionId;
-    //         console.log(result);
-    //         console.log("Session ID: " + result.data.sessionId);
-    //         console.log("Session successfully created!");
-    //         // loadScrumBoard(sessionId);
-
-    //         const master = true;
-    //     })
-    //     .catch(function(error) {
-
-    //     });
   }
 }
