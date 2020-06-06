@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   firebase: {
-    // Enter firebase key
+    // Please Enter Firebase Key Here
+
   }
 };
 
