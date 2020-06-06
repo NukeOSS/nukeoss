@@ -1,0 +1,6 @@
+<div [ngClass]="{'card text-white mb-3 text-center rounded': true, 'bg-warning': !selected, 'bg-danger': selected, 'border-sucess': hovering, 'border-danger': !hovering}" ng-mouseenter="hovering=true" ng-mouseleave="hovering=false" style="max-width: 18rem;"
+    (click)="selectedSequenceNumber()">
+    <div class="card-body">
+        <h5 class="card-title">{{ sequenceNumber }}</h5>
+    </div>
+</div>

@@ -9,9 +9,9 @@ import { Router } from '@angular/router';
 })
 export class CreatenewsessionComponent implements OnInit {
 
-  selectedSequence = ""
-  masterName = ""
-  sessionId = ""
+  selectedSequence: string
+  masterName: string
+  sessionId: string
 
   public createSession: any;
 
@@ -21,19 +21,18 @@ export class CreatenewsessionComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSequenceChange(event: any) {
-    this.selectedSequence = event.target.value;
-  }
-
-  getMasterName(event: any) {
-    this.masterName = event.target.value;
-  }
-
   async onCreateSession () {
-
 
     console.log(this.selectedSequence);
     console.log(this.masterName);
+
+    if(this.selectedSequence == '1') {
+      this.selectedSequence = "Fibonacci Number";
+    } else if (this.selectedSequence == "2") {
+      this.selectedSequence = "Prime Number";
+    } else {
+      this.selectedSequence = "Number";
+    }
 
     const callable = this.functions.httpsCallable('createsession');
 
@@ -48,9 +47,6 @@ export class CreatenewsessionComponent implements OnInit {
       console.log("Session ID: " + result.sessionId);
 
       console.log("Session successfully created!");
-      // loadScrumBoard(sessionId);
-
-      const master = true;
 
       this.router.navigate(['/ScrumBoardMaster', sessionId]);
 

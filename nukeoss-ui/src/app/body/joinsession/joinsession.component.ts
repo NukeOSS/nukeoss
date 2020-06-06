@@ -28,7 +28,7 @@ export class JoinsessionComponent implements OnInit {
       const result = await callable({ sessionId: this.sessionId, participantName: this.participantName }).toPromise();
       console.log("Session joined Successfuly!");
 
-      this.router.navigate(['/ScrumBoardParticipant', this.sessionId]);
+      this.router.navigate(['/ScrumBoardParticipant', this.sessionId, this.participantName]);
     } catch (error) {
       // Getting the Error details.
 

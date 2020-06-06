@@ -17,6 +17,10 @@ import { JoinsessionComponent } from './body/joinsession/joinsession.component';
 import { CreatenewsessionComponent } from './body/createnewsession/createnewsession.component';
 import { LoginComponent } from './body/login/login.component';
 import { ScrumboardparticipantComponent } from './body/scrumboardparticipant/scrumboardparticipant.component';
+import { ScrumboardmasterComponent } from './body/scrumboardmaster/scrumboardmaster.component';
+import { CommonModule } from '@angular/common';
+import { ParticipantcardComponent } from './body/scrumboardmaster/participantcard/participantcard.component';
+import { SequenceComponent } from './body/scrumboardparticipant/sequence/sequence.component';
 
 
 @NgModule({
@@ -27,13 +31,17 @@ import { ScrumboardparticipantComponent } from './body/scrumboardparticipant/scr
     JoinsessionComponent,
     CreatenewsessionComponent,
     LoginComponent,
-    ScrumboardparticipantComponent
+    ScrumboardparticipantComponent,
+    ScrumboardmasterComponent,
+    ParticipantcardComponent,
+    SequenceComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    CommonModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireDatabaseModule,

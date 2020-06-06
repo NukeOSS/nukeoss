@@ -12,7 +12,7 @@ const routes: Routes =[
   {path: 'CreateNewSession', component: CreatenewsessionComponent},
   {path: 'Login', component: LoginComponent},
   {path: 'ScrumBoardMaster/:sessionId', component: ScrumboardmasterComponent},
-  {path: 'ScrumBoardParticipant/:sessionId', component: ScrumboardparticipantComponent}
+  {path: 'ScrumBoardParticipant/:sessionId/:participantName', component: ScrumboardparticipantComponent}
 ];
 
 @NgModule({

@@ -16,12 +16,12 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-lg">Topic : </span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" id="topic">
+                    <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" [(ngModel)]="topic">
                 </div>
             </div>
             <div class="float-right">
-                <button class="btn btn-outline-light" id="showScrum">Show</button>
-                <button class="btn btn-outline-light" id="startScrum">Start</button>
+                <button class="btn btn-outline-light" id="showScrum" (click)="showValue()">Show</button>
+                <button class="btn btn-outline-light" id="startScrum" (click)="sendTopic()">Start</button>
             </div>
         </div>
         <div class="col"></div>
@@ -32,6 +32,17 @@
 
 <div class="container-fluid" id="scrumResponse">
     <div class="row pt-5" id="participantCard">
-
+        <ng-container *ngFor="let item of sessionsdata | async">
+            <div class="col text-center" *ngIf="!item.master">
+                <app-participantcard [name]="item.id" [value]="item.value"></app-participantcard>
+            </div>
+        </ng-container>
     </div>
 </div>
+
+<!-- <ul *ngFor="let item of sessions | async">
+    {{ item.id }} : {{ item.value }} : {{ item.master }}
+    <li *ngFor="let itemx of item.Participants">
+        {{ itemx }}
+    </li>
+</ul> -->
