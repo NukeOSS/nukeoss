@@ -4,7 +4,7 @@ This tool is designed to manage your scrum poker activity's.
 
 ### How to get started
 
-1. You can directly use the hosted project @ https://scrumpoker-3a0ac.web.app/
+1. You can directly use the hosted project @ https://scrumpokeross.web.app/
 
 2. Please Make a clone and Update the Firebase configurations as Needed.
 
