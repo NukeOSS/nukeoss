@@ -1,0 +1,50 @@
+<!-- scrum board participant -->
+
+<div class="container-fluid" id="scrumBoardParticipant">
+    <div class="row pt-5">
+        <div class="col">
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">
+                    Session ID: {{ sessionId }}
+                </h4>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-2">
+        <div class="col">
+        </div>
+        <div class="col ">
+            <ng-container *ngFor="let item of sessionsdata | async">
+                <ng-container *ngIf="item.id == 'Main'">
+                    <ng-container *ngIf="!item.Topic">
+                        <div class="alert alert-danger" role="alert" id="currentTopicDiv" *ngIf="item.id == 'Main'">
+                            <h4 class="alert-heading" id="currentTopic">No Topic Found!</h4>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="item.Topic">
+                        <div class="alert alert-success" role="alert" id="currentTopicDiv" *ngIf="item.id == 'Main'">
+                            <h4 class="alert-success" id="currentTopic">{{ item.Topic }}</h4>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+
+<!-- scrum sequence -->
+
+<div class="container-fluid" id="scrumSequence">
+    <div class="row pt-2">
+        <ng-container *ngFor="let item of sessionsdata | async">
+            <ng-container *ngIf="item.id == 'Main'">
+                <ng-container *ngFor="let itemx of countArray(10); let i = index;">
+                    <div class="col">
+                        <app-sequence [sessionId]="sessionId" [participantName]="participantName" [sequenceType]="item.Sequence" [elementIndex]="i"></app-sequence>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+    </div>
+</div>

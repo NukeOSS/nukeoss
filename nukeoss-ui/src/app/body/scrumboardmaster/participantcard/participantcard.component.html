@@ -1,0 +1,6 @@
+<div class="card mb-3" style="max-width: 18rem;">
+    <div class="card-header">{{ name }}</div>
+    <div [ngClass]="{'card-body text-center': true, 'text-danger': !dataRecieved, 'text-light bg-danger': dataRecieved}">
+        <h5 class="card-title">{{ value }}</h5>
+    </div>
+</div>

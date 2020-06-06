@@ -1,0 +1,48 @@
+<div class="container-fluid" id="scrumBoardMaster">
+    <div class="row pt-5">
+        <div class="col">
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">
+                    Session ID: {{ sessionId }}
+                </h4>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-2">
+        <div class="col"></div>
+        <div class="col bg-primary p-5 text-light rounded">
+            <div class="input-group mb-3">
+                <div class="input-group input-group-lg">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-lg">Topic : </span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" [(ngModel)]="topic">
+                </div>
+            </div>
+            <div class="float-right">
+                <button class="btn btn-outline-light" id="showScrum" (click)="showValue()">Show</button>
+                <button class="btn btn-outline-light" id="startScrum" (click)="sendTopic()">Start</button>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+
+<!-- scrum response -->
+
+<div class="container-fluid" id="scrumResponse">
+    <div class="row pt-5" id="participantCard">
+        <ng-container *ngFor="let item of sessionsdata | async">
+            <div class="col text-center" *ngIf="!item.master">
+                <app-participantcard [name]="item.id" [value]="item.value"></app-participantcard>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<!-- <ul *ngFor="let item of sessions | async">
+    {{ item.id }} : {{ item.value }} : {{ item.master }}
+    <li *ngFor="let itemx of item.Participants">
+        {{ itemx }}
+    </li>
+</ul> -->

@@ -29,7 +29,8 @@ exports.createsession = functions.https.onRequest((request, response) => {
                 Sequence: selectedSequence,
                 MasterName: name,
                 Topic: "",
-                Participants: []
+                Participants: [],
+                master: true
             })
             .then(() => {
                 result = {
@@ -70,7 +71,8 @@ exports.joinsession = functions.https.onRequest((request, response) => {
             })
             .then(() => {
                 return db.collection(sessionId).doc(participantName).set({
-                    value: 0
+                    value: 0,
+                    master: false
                 });
             })
             .then(() => {
@@ -78,6 +80,95 @@ exports.joinsession = functions.https.onRequest((request, response) => {
                 result = {
                     data: {
                         name: participantName,
+                        sessionId: sessionId
+                    }
+                };
+                console.log(result);
+
+                return response.status(200).send(result);
+            })
+            .catch((error) => {
+                console.log(error);
+                result = {
+                    data: {
+                        status: result,
+                    }
+                };
+                return response.status(500).send(result);
+            });
+    });
+});
+
+// Send Topic in the session
+
+exports.sendtopic = functions.https.onRequest((request, response) => {
+    cors(request, response, () => {
+
+        let sessionId = request.body.data.sessionId;
+        let topic = request.body.data.topic;
+
+        let result;
+
+        resetParticipants(sessionId);
+
+        db.collection(sessionId).doc("Main").update({
+                Topic: topic
+            })
+            .then(() => {
+                console.log("Topic changed successfully");
+                result = {
+                    data: {
+                        sessionId: sessionId
+                    }
+                };
+                console.log(result);
+
+                return response.status(200).send(result);
+            })
+            .catch((error) => {
+                console.log(error);
+                result = {
+                    data: {
+                        status: result,
+                    }
+                };
+                return response.status(500).send(result);
+            });
+    });
+});
+
+async function resetParticipants(sessionId) {
+    let participants = await db.collection(sessionId).doc('Main').get()
+        .then(doc => {
+            return doc.data().Participants;
+        });
+
+    for (const participant of participants) {
+        console.log(participant);
+        db.collection(sessionId).doc(participant).update({
+            value: 0
+        })
+    }
+}
+
+// Send selected sequence number in the session
+
+exports.sendvalue = functions.https.onRequest((request, response) => {
+    cors(request, response, () => {
+
+        let sessionId = request.body.data.sessionId;
+        let participantName = request.body.data.participantName;
+        let number = request.body.data.number;
+
+        let result;
+
+        db.collection(sessionId).doc(participantName).update({
+                value: number
+            })
+            .then(() => {
+                console.log("value updated successfully");
+                result = {
+                    data: {
                         sessionId: sessionId
                     }
                 };
