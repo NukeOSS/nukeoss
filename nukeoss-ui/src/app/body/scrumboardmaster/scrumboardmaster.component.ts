@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { map } from "rxjs/operators";
@@ -14,7 +14,7 @@ import { ParticipantcardComponent } from './participantcard/participantcard.comp
 })
 export class ScrumboardmasterComponent implements OnInit {
 
-  @ViewChild(ParticipantcardComponent) child: ParticipantcardComponent;
+  @ViewChildren(ParticipantcardComponent) child: QueryList<ParticipantcardComponent>;
 
   sessionId = ""
   topic = ""
@@ -64,6 +64,6 @@ export class ScrumboardmasterComponent implements OnInit {
   }
 
   showValue() {
-    this.child.showData()
+    this.child.forEach((child) => {child.showData();});
   }
 }

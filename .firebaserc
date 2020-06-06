@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "scrumpoker-3a0ac"
+    "default": "scrumpoker-3a0ac",
+    "prduction": "scrumpokeross"
   }
 }
