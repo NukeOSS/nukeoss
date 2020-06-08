@@ -12,6 +12,7 @@ export class JoinsessionComponent implements OnInit {
   error = false
   sessionId: String = ""
   participantName: String = ""
+  loadingSpinner = false
 
   constructor(public functions:AngularFireFunctions, private router: Router) { }
 
@@ -19,6 +20,8 @@ export class JoinsessionComponent implements OnInit {
   }
 
   async onJoinSession() {
+
+    this.loadingSpinner = true;
 
     console.log(this.sessionId +""+ this.participantName);
     const callable = this.functions.httpsCallable('joinsession');
