@@ -27,6 +27,10 @@ Follow the guide
 
 https://github.com/ScrumPokerOSS/ScrumPokerOSS/wiki/How-to-get-started
 
+### Follow the wiki to setup Angular in you machine
+
+https://github.com/ScrumPokerOSS/scrumpokeross/wiki/How-to-setup-nukeoss-ui-(Angular-UI-development-environment)
+
 ### Support or Contact
 
 Please Connect with our contributors for any help.
