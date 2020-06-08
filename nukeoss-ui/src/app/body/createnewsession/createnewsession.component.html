@@ -2,24 +2,32 @@
     <div class="row pt-5">
         <div class="col"></div>
         <div class="col bg-primary p-5 text-light rounded">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">Please Select sequence</label>
+            <div class="card border-danger mb-3" style="max-width: 28rem;" *ngIf="showErrorMessage">
+                <div class="card-body text-danger">
+                    <p class="card-text">{{ errorMessage }}</p>
                 </div>
-                <select class="custom-select" id="sequenceType" [(ngModel)]="selectedSequence">
-                <option selected>Choose...</option>
-                <option value="1">Fibonacci Number</option>
-                <option value="2">Prime Number</option>
-                <option value="3">Number</option>
-            </select>
             </div>
-            <div class="input-group mb-3">
-                <input type="text" [(ngModel)]="masterName" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Enter Your Name" id="masterName">
-            </div>
-            <div class="float-right">
-                <button class="btn btn-outline-light" id="createSession" (click)="onCreateSession()">Create Session</button>
-            </div>
+            <form (ngSubmit)="onCreateSession()" #form="ngForm">
+                <div class="input-group mb-3 form-group">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Please Select sequence</label>
+                    </div>
+                    <select class="input-group custom-select form-control" id="sequenceType" [(ngModel)]="selectedSequence" name="selectedSequence" required>
+                        <option value="1">Fibonacci Number</option>
+                        <option value="2">Prime Number</option>
+                        <option value="3">Number</option>
+                    </select>
+                </div>
+                <div class="mb-3 form-group">
+                    <input type="text" [(ngModel)]="masterName" name="masterName" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Enter Your Name" required>
+                </div>
+                <div class="float-right">
+                    <button class="btn btn-outline-light" type="submit" [disabled]="!form.valid || loadingSpinner">Create Session</button>
+                </div>
+            </form>
         </div>
         <div class="col"></div>
     </div>
 </div>
+
+<app-loadingspinner *ngIf="loadingSpinner"></app-loadingspinner>

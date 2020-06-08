@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-createnewsession',
@@ -9,9 +10,15 @@ import { Router } from '@angular/router';
 })
 export class CreatenewsessionComponent implements OnInit {
 
-  selectedSequence: string
+  @ViewChild('form') form: NgForm;
+
+  selectedSequence: string = "1"
   masterName: string
   sessionId: string
+
+  loadingSpinner = false;
+  showErrorMessage = false;
+  errorMessage = "";
 
   public createSession: any;
 
@@ -22,6 +29,8 @@ export class CreatenewsessionComponent implements OnInit {
   }
 
   async onCreateSession () {
+
+    this.loadingSpinner = true;
 
     console.log(this.selectedSequence);
     console.log(this.masterName);
@@ -56,6 +65,14 @@ export class CreatenewsessionComponent implements OnInit {
       var message = error.message;
       var details = error.details;
       // ...
+
+      this.loadingSpinner = false;
+      this.showErrorMessage = true;
+
+      if (message == "internal") {
+        message = "Please select sequence and enter your name."
+      }
+      this.errorMessage = message;
 
       console.log("Error Code: " + code + "\n Error Message: " + message + "\n Error details: " + details);
     }

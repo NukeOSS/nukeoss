@@ -21,6 +21,7 @@ import { ScrumboardmasterComponent } from './body/scrumboardmaster/scrumboardmas
 import { CommonModule } from '@angular/common';
 import { ParticipantcardComponent } from './body/scrumboardmaster/participantcard/participantcard.component';
 import { SequenceComponent } from './body/scrumboardparticipant/sequence/sequence.component';
+import { LoadingspinnerComponent } from './body/loadingspinner/loadingspinner.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { SequenceComponent } from './body/scrumboardparticipant/sequence/sequenc
     ScrumboardparticipantComponent,
     ScrumboardmasterComponent,
     ParticipantcardComponent,
-    SequenceComponent
+    SequenceComponent,
+    LoadingspinnerComponent
   ],
   imports: [
     BrowserModule,
