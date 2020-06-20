@@ -5,6 +5,7 @@ import { CreatenewsessionComponent } from './body/createnewsession/createnewsess
 import { LoginComponent } from './body/login/login.component';
 import { ScrumboardmasterComponent } from './body/scrumboardmaster/scrumboardmaster.component';
 import { ScrumboardparticipantComponent } from './body/scrumboardparticipant/scrumboardparticipant.component';
+import { HeaderComponent } from './header/header.component';
 
 
 const routes: Routes =[
@@ -12,7 +13,8 @@ const routes: Routes =[
   {path: 'CreateNewSession', component: CreatenewsessionComponent},
   {path: 'Login', component: LoginComponent},
   {path: 'ScrumBoardMaster/:sessionId', component: ScrumboardmasterComponent},
-  {path: 'ScrumBoardParticipant/:sessionId/:participantName', component: ScrumboardparticipantComponent}
+  {path: 'ScrumBoardParticipant/:sessionId/:participantName', component: ScrumboardparticipantComponent},
+  {path: 'Header', component: HeaderComponent}
 ];
 
 @NgModule({

@@ -7,6 +7,11 @@ import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { NgxAuthFirebaseUIModule, Theme } from 'ngx-auth-firebaseui';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+import { CookieService } from 'ngx-cookie-service';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,7 +27,6 @@ import { CommonModule } from '@angular/common';
 import { ParticipantcardComponent } from './body/scrumboardmaster/participantcard/participantcard.component';
 import { SequenceComponent } from './body/scrumboardparticipant/sequence/sequence.component';
 import { LoadingspinnerComponent } from './body/loadingspinner/loadingspinner.component';
-
 
 @NgModule({
   declarations: [
@@ -47,9 +51,23 @@ import { LoadingspinnerComponent } from './body/loadingspinner/loadingspinner.co
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireDatabaseModule,
-    AngularFireFunctionsModule
+    AngularFireFunctionsModule,
+    AngularFireAuthModule,
+    NgxAuthFirebaseUIModule,
+    BrowserAnimationsModule,
+    // Specify the ngx-auth-firebaseui library as an import
+    NgxAuthFirebaseUIModule.forRoot({
+      apiKey: "AIzaSyCilDU92wZHSgov84nCsjHvHkBaTUEi1q8",
+    authDomain: "scrumpoker-3a0ac.firebaseapp.com",
+    databaseURL: "https://scrumpoker-3a0ac.firebaseio.com",
+    projectId: "scrumpoker-3a0ac",
+    storageBucket: "scrumpoker-3a0ac.appspot.com",
+    messagingSenderId: "254261994841",
+    appId: "1:254261994841:web:a78081d97e0d5550465848",
+    measurementId: "G-XK3Y52BFJ0"
+  })
   ],
-  providers: [],
+  providers: [ CookieService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
