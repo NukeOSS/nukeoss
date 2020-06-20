@@ -56,16 +56,7 @@ import { LoadingspinnerComponent } from './body/loadingspinner/loadingspinner.co
     NgxAuthFirebaseUIModule,
     BrowserAnimationsModule,
     // Specify the ngx-auth-firebaseui library as an import
-    NgxAuthFirebaseUIModule.forRoot({
-      apiKey: "AIzaSyCilDU92wZHSgov84nCsjHvHkBaTUEi1q8",
-    authDomain: "scrumpoker-3a0ac.firebaseapp.com",
-    databaseURL: "https://scrumpoker-3a0ac.firebaseio.com",
-    projectId: "scrumpoker-3a0ac",
-    storageBucket: "scrumpoker-3a0ac.appspot.com",
-    messagingSenderId: "254261994841",
-    appId: "1:254261994841:web:a78081d97e0d5550465848",
-    measurementId: "G-XK3Y52BFJ0"
-  })
+    NgxAuthFirebaseUIModule.forRoot(environment.firebase)
   ],
   providers: [ CookieService ],
   bootstrap: [AppComponent]
