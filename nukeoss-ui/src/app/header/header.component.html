@@ -17,14 +17,13 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="nav-item active">
-                    <a class="nav-link" id="userName">Guest</a>
+                <li class="nav-item">
+                    <ngx-auth-firebaseui-avatar (onSignOut)="signOut()"></ngx-auth-firebaseui-avatar>
                 </li>
                 <li class="nav-item" routerLinkActive="active">
                     <a routerLink="/Login">
-                        <button *ngIf="login" class="btn btn-outline-light" id="loginBtn">Login</button>
+                        <button *ngIf="!login" class="btn btn-outline-light">Login</button>
                     </a>
-                    <button *ngIf="!login" class="btn btn-outline-light" id="signoutBtn">SignOut</button>
                 </li>
             </ul>
         </div>

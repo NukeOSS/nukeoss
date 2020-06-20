@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/functions';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-joinsession',
@@ -13,8 +13,9 @@ export class JoinsessionComponent implements OnInit {
   sessionId: String = ""
   participantName: String = ""
   loadingSpinner = false
+  uid: string = ""
 
-  constructor(public functions:AngularFireFunctions, private router: Router) { }
+  constructor(private route: ActivatedRoute, public functions:AngularFireFunctions, private router: Router) { }
 
   ngOnInit(): void {
   }
