@@ -1,4 +1,4 @@
-## Welcome Scrum Poker OSS
+## Welcome NUKE OSS
 
 This tool is designed to manage your scrum poker activity's.
 
@@ -25,11 +25,11 @@ This tool is designed to manage your scrum poker activity's.
 ### How to contribute
 Follow the guide
 
-https://github.com/ScrumPokerOSS/ScrumPokerOSS/wiki/How-to-get-started
+https://github.com/NukeOSS/nukeoss/wiki/How-to-get-started
 
 ### Follow the wiki to setup Angular in you machine
 
-https://github.com/ScrumPokerOSS/scrumpokeross/wiki/How-to-setup-nukeoss-ui-(Angular-UI-development-environment)
+https://github.com/NukeOSS/nukeoss/wiki/How-to-setup-nukeoss-ui-(Angular-UI-development-environment)
 
 ### Support or Contact
 
