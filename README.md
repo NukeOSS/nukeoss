@@ -1,4 +1,4 @@
-## Welcome Scrum Poker OSS
+## Welcome NUKE OSS
 
 This tool is designed to manage your scrum poker activity's.
 
