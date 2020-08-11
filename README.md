@@ -29,7 +29,7 @@ https://github.com/NukeOSS/nukeoss/wiki/How-to-get-started
 
 ### Follow the wiki to setup Angular in you machine
 
-https://github.com/ScrumPokerOSS/scrumpokeross/wiki/How-to-setup-nukeoss-ui-(Angular-UI-development-environment)
+https://github.com/NukeOSS/nukeoss/wiki/How-to-setup-nukeoss-ui-(Angular-UI-development-environment)
 
 ### Support or Contact
 
