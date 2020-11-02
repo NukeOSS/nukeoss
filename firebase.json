@@ -1,47 +1,41 @@
 {
-  "database": {
-    "rules": "database.rules.json"
-  },
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
-  },
-  "hosting": {
-    "public": "public",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ]
-  },
-  "emulators": {
     "firestore": {
-      "port": "9001"
+        "rules": "firestore.rules",
+        "indexes": "firestore.indexes.json"
     },
     "hosting": {
-      "port": "9002"
+        "public": "public",
+        "ignore": [
+            "firebase.json",
+            "**/.*",
+            "**/node_modules/**"
+        ]
     },
-    "database": {
-      "port": "9004"
-    },
-    "ui": {
-      "enabled": true,
-      "port": "9003"
+    "emulators": {
+        "firestore": {
+            "port": "9001"
+        },
+        "hosting": {
+            "port": "9002"
+        },
+        "ui": {
+            "enabled": true,
+            "port": "9003"
+        },
+        "functions": {
+            "port": 5001
+        }
     },
     "functions": {
-      "port": 5001
+        "predeploy": [
+            "npm --prefix \"$RESOURCE_DIR\" run lint"
+        ],
+        "source": "functions"
+    },
+    "storage": {
+        "rules": "storage.rules"
     }
-  },
-  "functions": {
-    "predeploy": [
-      "npm --prefix \"$RESOURCE_DIR\" run lint"
-    ],
-    "source": "functions"
-  },
-  "storage": {
-    "rules": "storage.rules"
-  },
-  "remoteconfig": {
-    "template": "remoteconfig.template.json"
-  }
+    // "remoteconfig": {
+    //     "template": "remoteconfig.template.json"
+    // }
 }
