@@ -1,7 +1,7 @@
 <div class="container-fluid" id="joinSession">
     <div class="row pt-5">
-        <div class="col"></div>
-        <div class="col bg-primary p-5 text-light rounded">
+        <div class="col-md-3 col-1"></div>
+        <div class="col-md-6 col-10 bg-primary p-5 text-light rounded">
             <form (ngSubmit)="onJoinSession()" #form="ngForm">
                 <div *ngIf="error" class="alert alert-danger" role="alert" id="sessionNotFoundError">
                     No Session Found!
@@ -17,7 +17,7 @@
                 </div>
             </form>
         </div>
-        <div class="col"></div>
+        <div class="col-md-3 col-1"></div>
     </div>
 </div>
 
