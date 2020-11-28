@@ -27,6 +27,7 @@ import { CommonModule } from '@angular/common';
 import { ParticipantcardComponent } from './body/scrumboardmaster/participantcard/participantcard.component';
 import { SequenceComponent } from './body/scrumboardparticipant/sequence/sequence.component';
 import { LoadingspinnerComponent } from './body/loadingspinner/loadingspinner.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { LoadingspinnerComponent } from './body/loadingspinner/loadingspinner.co
     ScrumboardmasterComponent,
     ParticipantcardComponent,
     SequenceComponent,
-    LoadingspinnerComponent
+    LoadingspinnerComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
