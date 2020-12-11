@@ -22,6 +22,9 @@ exports.createsession = functions.https.onRequest((request, response) => {
 
         let name = request.body.data.name;
         let selectedSequence = request.body.data.selectedSequence;
+        let CreationDate = date();
+        let CreationTime=time();
+        let currentstatus="Started";
 
         let result;
 
@@ -30,6 +33,9 @@ exports.createsession = functions.https.onRequest((request, response) => {
                 MasterName: name,
                 Topic: "",
                 Participants: [],
+                Date: CreationDate,
+                Time: CreationTime,
+                Status:currentstatus,
                 master: true
             })
             .then(() => {
@@ -215,4 +221,19 @@ function createSessionID() {
     returnSession = base62.encode(miliSec);
     return returnSession;
 
+}
+
+/*Create Date And Time*/
+
+function date(){
+    var data=new Date();
+    var SetDate=data.getDate()+"/"+(data.getMonth()+1)+"/"+data.getFullYear();
+    return SetDate;
+}
+
+/*Create Time Field*/
+function time(){
+    var data=new Date();
+    var SetTime=data.getHours()+":"+data.getMinutes()+":"+data.getSeconds();
+    return SetTime;
 }
